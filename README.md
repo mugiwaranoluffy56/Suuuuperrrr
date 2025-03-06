@@ -1,3 +1,4 @@
+
 # Suuuuperrrr
 Anime and Manga repository
 
@@ -19,3 +20,8 @@ Anime and Manga repository
 -[MangaFire](https://www.mangafire.to)
 -[Manganato](https://www.manganato.gg)
 -[Mangahasu](https://www.mangahasu.me)
+ 
+## Download
+
+-[AnimeTosho](https://www.animetosho.org)
+-[Nyaa.si](https://nyaa.si)
