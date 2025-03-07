@@ -17,19 +17,19 @@ class HiAnime : HttpSource() {
     override val supportsLatest = true
 
     override fun popularAnimeRequest(page: Int): Request {
-        return GET("$baseUrl/videos/anime/popular", headers)
+        return GET("$baseUrl/popular?page=$page", headers)
     }
 
     override fun popularAnimeParse(response: Response): AnimesPage {
         val document = Jsoup.parse(response.body.string())
-        val animes = document.select("div.portrait-element").map {
+        val animes = document.select("div.anime-list > div.anime-item").map {
             SAnime.create().apply {
                 title = it.select("a.title").text()
                 url = it.select("a").attr("href")
                 thumbnail_url = it.select("img").attr("src")
             }
         }
-        return AnimesPage(animes, hasNextPage = false)
+        return AnimesPage(animes, hasNextPage = true)
     }
 
     override fun animeDetailsRequest(anime: SAnime): Request {
@@ -83,34 +83,34 @@ class HiAnime : HttpSource() {
     }
 
     override fun searchAnimeRequest(page: Int, query: String, filters: FilterList): Request {
-        return GET("$baseUrl/search?q=$query", headers)
+        return GET("$baseUrl/search?q=$query&page=$page", headers)
     }
 
     override fun searchAnimeParse(response: Response): AnimesPage {
         val document = Jsoup.parse(response.body.string())
-        val animes = document.select("div.portrait-element").map {
+        val animes = document.select("div.anime-list > div.anime-item").map {
             SAnime.create().apply {
                 title = it.select("a.title").text()
                 url = it.select("a").attr("href")
                 thumbnail_url = it.select("img").attr("src")
             }
         }
-        return AnimesPage(animes, hasNextPage = false)
+        return AnimesPage(animes, hasNextPage = true)
     }
 
     override fun latestUpdatesRequest(page: Int): Request {
-        return GET("$baseUrl/videos/anime/updated", headers)
+        return GET("$baseUrl/latest?page=$page", headers)
     }
 
     override fun latestUpdatesParse(response: Response): AnimesPage {
         val document = Jsoup.parse(response.body.string())
-        val animes = document.select("div.portrait-element").map {
+        val animes = document.select("div.anime-list > div.anime-item").map {
             SAnime.create().apply {
                 title = it.select("a.title").text()
                 url = it.select("a").attr("href")
                 thumbnail_url = it.select("img").attr("src")
             }
         }
-        return AnimesPage(animes, hasNextPage = false)
+        return AnimesPage(animes, hasNextPage = true)
     }
 }
